@@ -8,12 +8,11 @@
   },
   "scripts": {
     "start": "node server.js",
-
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "name": "happy-new-year",
-  "description": "https://jumin20099.github.io/HappyNewYear",
+  "description": "새해 복 많이 받으세요",
   "homepage": "https://jumin20099.github.io/HappyNewYear",
   "version": "1.0.0",
   "main": "script.js",
