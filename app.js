@@ -1,9 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 초기화면에서는 기본 검색어로 설정
-  searchImages('Fireworks');
+  searchImages('불꽃놀이');
 });
 
+function moveImageContainerRandomly() {
+  const imageContainer = document.getElementById('imageContainer');
+
+  if (imageContainer) {
+    // 이미지 컨테이너의 크기를 가져옴
+    containerWidth = imageContainer.offsetWidth;
+    containerHeight = imageContainer.offsetHeight;
+
+    // 이미지 컨테이너 내에서 랜덤으로 위치 설정
+    const top = Math.floor(Math.random() * 0); // 0에서 400 사이의 값
+    const left = Math.floor(Math.random() * -150) + 0; // 300에서 1500 사이의 값
+
+    // imageContainer의 위치를 변경
+    imageContainer.style.position = 'absolute';
+    imageContainer.style.top = `${top}px`;
+    imageContainer.style.left = `${left}px`;
+  }
+}
+
 async function searchImages() {
+  moveImageContainerRandomly();
+
   const userSearchQuery = '불꽃놀이';
   const encodedSearchQuery = encodeURIComponent(userSearchQuery);
 
@@ -15,8 +36,8 @@ async function searchImages() {
     // 이미지 배열을 무작위로 섞음
     const shuffledImages = shuffleArray(data.items);
 
-    // 특정 개수(예: 5개)의 무작위 이미지를 선택
-    const newImages = shuffledImages.slice(0, 6);
+    // 특정 개수(예: 10개)의 무작위 이미지를 선택
+    const newImages = shuffledImages.slice(0, 10);
 
     // API 응답을 이용하여 원하는 작업을 수행
     displayImages(newImages);
@@ -47,7 +68,7 @@ function displayImages(images) {
   imageContainer.innerHTML = '';
 
   if (Array.isArray(images)) {
-    images.forEach(image => {
+    images.forEach((image, index) => {
       const imgElement = document.createElement('img');
       imgElement.src = image.link;
       imgElement.alt = image.title;
@@ -58,16 +79,16 @@ function displayImages(images) {
         imgElement.alt = '이미지 로드 실패 ㅅㄱ';
       };
 
+      // 이미지마다 랜덤한 위치 설정
+      const top = Math.floor(Math.random() * 500);
+      const left = Math.floor(Math.random() * 1450) + 250;
+      imgElement.style.position = 'absolute';
+      imgElement.style.top = `${top}px`;
+      imgElement.style.left = `${left}px`;
+
       imageContainer.appendChild(imgElement);
     });
   } else {
     console.error('Images data is not an array:', images);
   }
-}
-
-
-// 배열에서 무작위 항목 여러 개 선택하는 함수
-function getRandomItems(array, count) {
-  const shuffledArray = array.sort(() => 0.1 - Math.random());
-  return shuffledArray.slice(1, count);
 }

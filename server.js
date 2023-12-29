@@ -15,17 +15,17 @@ app.get('/search-images', async (req, res) => {
 
   try {
     const response = await axios.get(apiUrl, {
-      params: { query, display: 6 }, // n개의 이미지를 받아옴
+      params: { query, display: 10 }, // n개의 이미지를 받아옴
       headers: {
         'X-Naver-Client-Id': clientId,
         'X-Naver-Client-Secret': clientSecret,
       },
-    });
+    }); //배열에 display 값 만큼의 이미지를 저장하고 피셔 예이츠 셔플 알고리즘으로 10개씩 꺼내오기
 
     const images = response.data.items;
 
-    // 이미지 중에서 무작위로 5개 선택
-    const randomImages = getRandomItems(images, 5);
+    // 이미지 중에서 무작위로 10개 선택
+    const randomImages = getRandomItems(images, 10);
 
     res.json({ items: randomImages });
   } catch (error) {
@@ -33,7 +33,6 @@ app.get('/search-images', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 // 배열에서 무작위 항목 여러 개 선택하는 함수
 function getRandomItems(array, count) {

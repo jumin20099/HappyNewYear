@@ -1,4 +1,57 @@
+h1 {
+    font-weight: 900;
+    font-size: 60px;
+    z-index: 1000;
+    text-align: center;
+}
+
+button {
+    z-index: 1001;
+}
+
+@keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shake {
+    0% {
+        top: 100px;
+    }
+
+    50% {
+        top: 200px;
+    }
+
+    100% {
+        top: 100px;
+    }
+}
+
 img {
+    width: 200px;
+    height: 150px;
+    margin: 5px;
+    animation: rotate 0.3s infinite;
+}
+
+#imageContainer {
+    position: relative;
+    background-color: #f0f0f0;
+    animation: shake 1s infinite;
+}
+
+.randomImage {
+    position: absolute;
     width: 200px;
     height: 150px;
     margin: 5px;
