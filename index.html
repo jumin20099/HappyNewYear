@@ -4,21 +4,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon-96x96.png">
   <link rel="stylesheet" href="style.css">
-  <title>네이버 이미지 검색 예제</title>
+  <title>방구석 새해맞이</title>
 </head>
 
 <body>
-
-  <h1>새해 복 많이 받으세요</h1>
-
-  <div>
-    <button onclick="searchImages()">불꽃놀이 이미지 새로 뽑기</button>
+  <div id="container">
+    <div>
+      <button class="btn" id="fireWorksBtn" style="display: none;" onclick="searchImages()">폭?죽 터뜨리기</button>
+      <button class="btn" id="hwanhoBtn" style="display: none;" onclick="환호하는소리재생('hwanho.mp3')">환호하기</button>
+    </div>
+    <h1 id="newYearMessage">새해가 다가오고 있습니다..</h1>
+    <p id="countdown"><span style="display: block;" id="countdownTimer"></span></p>
+    <audio id="hwanho" src="환호.mp3"></audio>
+    <audio id="mainFireWorks" src="메인폭죽.mp3"></audio>
+    <audio id="realFireWorksSound" src="폭죽소리(진짜임).mp3"></audio>
   </div>
 
-  <div id="imageContainer"></div>
+  <div id="imageContainer" style="display: none;"></div>
 
   <script src="app.js"></script>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', () => {
+      const newYearMessage = document.getElementById('newYearMessage');
+      const countdownTimer = document.getElementById('countdownTimer');
+      const currentDate = new Date();
+      const newYearDate = new Date(currentDate.getFullYear() + 1, 0, 1); // 다음 해 1월 1일
+
+      if (currentDate < newYearDate) {
+        // 1월 1일이 되기 전 메시지 표시
+        // 남은 시간 계산 및 표시
+        const timeDiff = newYearDate - currentDate;
+        updateCountdown(timeDiff);
+        // 1초 간격으로 남은 시간 업데이트
+        setInterval(() => {
+          const timeDiff = newYearDate - new Date();
+          updateCountdown(timeDiff);
+        }, 1000);
+      } else {
+        // 1월 1일에는 새해 메시지 표시 및 페이지 새로고침
+
+        newYearMessage.textContent = '새해 복 많이 받으세요!';
+        location.reload();
+      }
+    });
+
+    // 현재 날짜를 얻기 위한 함수
+    function getCurrentDate() {
+      const currentDate = new Date();
+      return {
+        month: currentDate.getMonth() + 1, // 월은 0부터 시작하므로 1을 더해줍니다.
+        day: currentDate.getDate(),
+      };
+    }
+
+    // 페이지 로드 시 이벤트 확인
+    function checkEvent() {
+  const currentDate = getCurrentDate();
+  const newYearMessage = document.getElementById('newYearMessage');
+  const imageContainer = document.getElementById('imageContainer');
+  const timer = document.getElementById('countdownTimer');
+  const audio2 = document.getElementById('mainFireWorks');
+  const btn = document.getElementsByClassName('btn');
+
+  // 1월 1일인 경우
+  if (currentDate.month === 1 && currentDate.day === 1) {
+    newYearMessage.textContent = '새해 복 많이 받으세요!';
+    imageContainer.style.display = 'block';
+    timer.style.display = 'none';
+    // 배열에서 버튼들을 인덱스를 이용하여 가져옴
+    for (let i = 0; i < btn.length; i++) {
+      btn[i].style.display = 'block';
+    }
+    audio2.volume = 1;
+    audio2.autoplay = true;
+    audio2.loop = true;
+    audio2.play();
+    setInterval(반짝반짝, 10);
+  }
+}
+
+    // 페이지 로드 시 이벤트 확인
+    checkEvent();
+
+    // 남은 시간을 업데이트하고 표시하는 함수
+    function updateCountdown(timeDiff) {
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      countdownTimer.textContent = `${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+    }
+  </script>
 
 </body>
 
