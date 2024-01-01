@@ -16,7 +16,9 @@
       <button class="btn" id="fireWorksBtn" style="display: none;" onclick="searchImages()">폭?죽 터뜨리기</button>
       <button class="btn" id="hwanhoBtn" style="display: none;" onclick="환호하는소리재생('hwanho.mp3')">환호하기</button>
     </div>
-    <h1 id="newYearMessage">새해가 다가오고 있습니다..</h1>
+    <div id="h1Div">
+      <h1 id="newYearMessage">새해가 다가오고 있습니다..</h1>
+    </div>
     <p id="countdown"><span style="display: block;" id="countdownTimer"></span></p>
     <audio id="hwanho" src="환호.mp3"></audio>
     <audio id="mainFireWorks" src="메인폭죽.mp3"></audio>
@@ -83,7 +85,7 @@
     audio2.autoplay = true;
     audio2.loop = true;
     audio2.play();
-    setInterval(반짝반짝, 10);
+    // setInterval(반짝반짝, 10);
   }
 }
 
